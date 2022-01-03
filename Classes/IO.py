@@ -108,6 +108,10 @@ class IO:
         return os.listdir(IO.fpl2fp(filePathList))
 
     @staticmethod
+    def GetCWD():
+        return os.getcwd()
+
+    @staticmethod
     def Delete(fileNameList):
         os.remove(IO.fnl2fn(fileNameList))
 
