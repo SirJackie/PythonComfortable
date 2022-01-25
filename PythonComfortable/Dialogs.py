@@ -1,5 +1,4 @@
 import easygui
-import ctypes
 
 
 def MessageBox(title, content):

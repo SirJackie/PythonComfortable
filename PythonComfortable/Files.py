@@ -40,7 +40,7 @@ class Files:
 
     @staticmethod
     def Write(fileNameList, content):
-        # Try Create Folder
+        # Try to Create a Folder
         filePathList = Files.fnl2fpl(fileNameList)
         Files.TryCreateFolder(filePathList)
 
@@ -51,7 +51,7 @@ class Files:
 
     @staticmethod
     def WriteBinary(fileNameList, content):
-        # Try Create Folder
+        # Try to Create a Folder
         filePathList = Files.fnl2fpl(fileNameList)
         Files.TryCreateFolder(filePathList)
 
