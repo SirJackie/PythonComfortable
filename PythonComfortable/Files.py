@@ -3,7 +3,7 @@ import os
 import shutil
 
 
-class IO:
+class Files:
     @staticmethod
     # File Path List 2 File Path String
     def fpl2fp(filePathList):
@@ -27,12 +27,12 @@ class IO:
     @staticmethod
     def TryCreateFolder(filePathList):
         try:
-            filePath = IO.fpl2fp(filePathList)
+            filePath = Files.fpl2fp(filePathList)
             os.mkdir(filePath)
         except FileNotFoundError:
             # Create the father folder first
-            IO.TryCreateFolder(filePathList[:-1])
-            IO.TryCreateFolder(filePathList)
+            Files.TryCreateFolder(filePathList[:-1])
+            Files.TryCreateFolder(filePathList)
         except FileExistsError:
             pass
         else:
@@ -41,28 +41,28 @@ class IO:
     @staticmethod
     def Write(fileNameList, content):
         # Try Create Folder
-        filePathList = IO.fnl2fpl(fileNameList)
-        IO.TryCreateFolder(filePathList)
+        filePathList = Files.fnl2fpl(fileNameList)
+        Files.TryCreateFolder(filePathList)
 
         # Write File
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
         with open(fileName, "w", encoding="utf-8") as f:
             f.write(content)
 
     @staticmethod
     def WriteBinary(fileNameList, content):
         # Try Create Folder
-        filePathList = IO.fnl2fpl(fileNameList)
-        IO.TryCreateFolder(filePathList)
+        filePathList = Files.fnl2fpl(fileNameList)
+        Files.TryCreateFolder(filePathList)
 
         # Write File
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
         with open(fileName, "wb") as f:
             f.write(content)
 
     @staticmethod
     def Read(fileNameList):
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
         content = ""
         with open(fileName, "r", encoding="utf-8") as f:
             content = f.read()
@@ -70,7 +70,7 @@ class IO:
 
     @staticmethod
     def ReadBinary(fileNameList):
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
         content = ""
         with open(fileName, "rb") as f:
             content = f.read()
@@ -78,7 +78,7 @@ class IO:
 
     @staticmethod
     def ReadLatin1(fileNameList):
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
         content = ""
         with open(fileName, "r", encoding="latin-1") as f:
             content = f.read()
@@ -93,19 +93,19 @@ class IO:
 
     @staticmethod
     def Exist(fileNameList):
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
         return os.path.exists(fileName)
 
     @staticmethod
     def Rename(fileNameList, newFileNameList):
         os.rename(
-            IO.fnl2fn(fileNameList),
-            IO.fnl2fn(newFileNameList)
+            Files.fnl2fn(fileNameList),
+            Files.fnl2fn(newFileNameList)
         )
 
     @staticmethod
     def ListDir(filePathList):
-        return os.listdir(IO.fpl2fp(filePathList))
+        return os.listdir(Files.fpl2fp(filePathList))
 
     @staticmethod
     def GetCWD():
@@ -113,15 +113,15 @@ class IO:
 
     @staticmethod
     def Delete(fileNameList):
-        os.remove(IO.fnl2fn(fileNameList))
+        os.remove(Files.fnl2fn(fileNameList))
 
     @staticmethod
     def DeleteFolder(filePathList):
-        shutil.rmtree(IO.fpl2fp(filePathList))
+        shutil.rmtree(Files.fpl2fp(filePathList))
 
     @staticmethod
     def CheckMP3Playable(fileNameList):
-        fileName = IO.fnl2fn(fileNameList)
+        fileName = Files.fnl2fn(fileNameList)
 
         # 读取文件内字符串
         head_3_str = None
@@ -147,7 +147,7 @@ class IO:
 
     @staticmethod
     def CheckImageType(fileNameList):
-        fileContent = IO.ReadLatin1(fileNameList)
+        fileContent = Files.ReadLatin1(fileNameList)
 
         # Read Headed Chars
         head3Chars = fileContent[:3]
@@ -166,10 +166,10 @@ class IO:
 
     @staticmethod
     def Copy(src, dst):
-        # Try Create Folder is already included in IO.WriteBinary().
-        IO.WriteBinary(dst, IO.ReadBinary(src))
+        # Try Create Folder is already included in Files.WriteBinary().
+        Files.WriteBinary(dst, Files.ReadBinary(src))
 
     @staticmethod
     def CopyWithShutil(src, dst):
-        IO.TryCreateFolder(IO.fnl2fpl(dst))              # Try Create Folder
-        shutil.copyfile(IO.fnl2fn(src), IO.fnl2fn(dst))  # Write File
+        Files.TryCreateFolder(Files.fnl2fpl(dst))              # Try Create Folder
+        shutil.copyfile(Files.fnl2fn(src), Files.fnl2fn(dst))  # Write File
