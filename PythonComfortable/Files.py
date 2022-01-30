@@ -39,15 +39,8 @@ class Files:
             pass
 
     @staticmethod
-    def Write(fileNameList, content):
-        # Try to Create a Folder
-        filePathList = Files.fnl2fpl(fileNameList)
-        Files.TryCreateFolder(filePathList)
-
-        # Write File
-        fileName = Files.fnl2fn(fileNameList)
-        with open(fileName, "w", encoding="utf-8") as f:
-            f.write(content)
+    def Write(fileNameList, content, encoding_="utf-8"):
+        Files.WriteBinary(fileNameList, content.encode(encoding_))
 
     @staticmethod
     def WriteBinary(fileNameList, content):
@@ -61,12 +54,8 @@ class Files:
             f.write(content)
 
     @staticmethod
-    def Read(fileNameList):
-        fileName = Files.fnl2fn(fileNameList)
-        content = ""
-        with open(fileName, "r", encoding="utf-8") as f:
-            content = f.read()
-        return content
+    def Read(fileNameList, encoding_="utf-8"):
+        return Files.ReadBinary(fileNameList).decode(encoding_)
 
     @staticmethod
     def ReadBinary(fileNameList):
